@@ -31,6 +31,14 @@ class Matrix:
     
     def get(self, x, y):
         return self.matrix[y][x]
+    
+    def get_neighbors(self, x, y):
+        neighbors = []
+        for direction in [self.UP, self.DOWN, self.RIGHT, self.LEFT]:
+            neighbor = (x + direction[0], y + direction[1])
+            if not self.is_out_of_bounds(neighbor):
+                neighbors.append(neighbor)
+        return neighbors
 
     def move(self, direction, steps=1):
         '''
