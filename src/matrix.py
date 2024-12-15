@@ -1,3 +1,7 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+
 class Matrix:
 
     UP = (0, -1)
@@ -20,6 +24,18 @@ class Matrix:
                 matrix.append([char for char in line.strip()])
         return cls(matrix)
 
+    def visualize(self):
+        # Convert symbols to numeric values for visualization
+        unique_symbols = list(set(symbol for row in self.matrix for symbol in row))
+        symbol_to_num = {symbol: i for i, symbol in enumerate(unique_symbols)}
+        
+        numeric_matrix = [[symbol_to_num[symbol] for symbol in row] for row in self.matrix]
+        
+        plt.figure(figsize=(10, 10))
+        im = plt.imshow(np.array(numeric_matrix))
+                
+        plt.show()
+    
     def __str__(self):
         return str(self.matrix)
         
@@ -32,6 +48,9 @@ class Matrix:
     def get(self, x, y):
         return self.matrix[y][x]
     
+    def set(self, x, y, value):
+        self.matrix[y][x] = value
+
     def get_neighbors(self, x, y):
         neighbors = []
         for direction in [self.UP, self.DOWN, self.RIGHT, self.LEFT]:
